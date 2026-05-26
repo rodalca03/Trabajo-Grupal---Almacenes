@@ -1,0 +1,56 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\FX516\\Desktop\\_Asignaturas\\5\u00BA A\u00F1o - 3\u00BA Curso\\2\u00BA Cuatrimestre\\Almacenes de Datos e Inteligencia de Negocio\\Trabajo Grupal\\FutbolCubo\\CuboFutbol\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5F564231-E41B-33B3-8121-3AA6FBD430CB}|CuboFutbol.dwproj|C:\\Users\\FX516\\Desktop\\_Asignaturas\\5\u00BA A\u00F1o - 3\u00BA Curso\\2\u00BA Cuatrimestre\\Almacenes de Datos e Inteligencia de Negocio\\Trabajo Grupal\\FutbolCubo\\CuboFutbol\\Futbol DW.cube||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{5F564231-E41B-33B3-8121-3AA6FBD430CB}|CuboFutbol.dwproj|solutionrelative:Futbol DW.cube||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F564231-E41B-33B3-8121-3AA6FBD430CB}|CuboFutbol.dwproj|C:\\Users\\FX516\\Desktop\\_Asignaturas\\5\u00BA A\u00F1o - 3\u00BA Curso\\2\u00BA Cuatrimestre\\Almacenes de Datos e Inteligencia de Negocio\\Trabajo Grupal\\FutbolCubo\\CuboFutbol\\Dim Time.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{5F564231-E41B-33B3-8121-3AA6FBD430CB}|CuboFutbol.dwproj|solutionrelative:Dim Time.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{7cc9e714-2774-4fc6-8631-a07eee703286}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Dim Time.dim [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\FX516\\Desktop\\_Asignaturas\\5\u00BA A\u00F1o - 3\u00BA Curso\\2\u00BA Cuatrimestre\\Almacenes de Datos e Inteligencia de Negocio\\Trabajo Grupal\\FutbolCubo\\CuboFutbol\\Dim Time.dim",
+              "RelativeDocumentMoniker": "Dim Time.dim",
+              "ToolTip": "C:\\Users\\FX516\\Desktop\\_Asignaturas\\5\u00BA A\u00F1o - 3\u00BA Curso\\2\u00BA Cuatrimestre\\Almacenes de Datos e Inteligencia de Negocio\\Trabajo Grupal\\FutbolCubo\\CuboFutbol\\Dim Time.dim [Dise\u00F1o]",
+              "RelativeToolTip": "Dim Time.dim [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-26T21:16:29.904Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Futbol DW.cube [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\FX516\\Desktop\\_Asignaturas\\5\u00BA A\u00F1o - 3\u00BA Curso\\2\u00BA Cuatrimestre\\Almacenes de Datos e Inteligencia de Negocio\\Trabajo Grupal\\FutbolCubo\\CuboFutbol\\Futbol DW.cube",
+              "RelativeDocumentMoniker": "Futbol DW.cube",
+              "ToolTip": "C:\\Users\\FX516\\Desktop\\_Asignaturas\\5\u00BA A\u00F1o - 3\u00BA Curso\\2\u00BA Cuatrimestre\\Almacenes de Datos e Inteligencia de Negocio\\Trabajo Grupal\\FutbolCubo\\CuboFutbol\\Futbol DW.cube [Dise\u00F1o]",
+              "RelativeToolTip": "Futbol DW.cube [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-26T20:04:17.097Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

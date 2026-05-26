@@ -1,0 +1,89 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>CuboFutbol</Database>
+    <Server>LAPTOP-KVKG5O61</Server>
+    <ConnectionString>Data Source=LAPTOP-KVKG5O61;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>Default</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>G15iulCJ9SDmHMsaTAhYweBd+cw=26/05/2026 22:09:2326/05/2026 20:56:41</TimeStamp>
+        <ID>
+          <String>Futbol DW</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>FZ6mkyf9iaNkalo6d11Jd1gi1H0=26/05/2026 23:04:0826/05/2026 20:58:38</TimeStamp>
+        <ID>
+          <String>Futbol DW</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>jw5yDNPdKAFcVers5XCw2UNvQ0s=26/05/2026 23:14:5626/05/2026 22:04:16</TimeStamp>
+        <ID>
+          <String>Dim Jornada</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>y4tJiJLLwie3LmHrka7GXqp6rYo=26/05/2026 23:14:5626/05/2026 22:04:16</TimeStamp>
+        <ID>
+          <String>Dim Teams</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>2Ju3BE/tufPcCGg4A74NSmOIyeA=26/05/2026 23:14:5626/05/2026 22:04:16</TimeStamp>
+        <ID>
+          <String>Dim Estadios</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>+3Z8BAmtHZFi3wy0H2cIqO4ZOaY=26/05/2026 23:14:5626/05/2026 22:04:16</TimeStamp>
+        <ID>
+          <String>Dim Events</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>hA/vqJX7AIk15wlwhe2cQH5/8DA=26/05/2026 23:14:5626/05/2026 22:04:16</TimeStamp>
+        <ID>
+          <String>Dim Time</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>TSM7YSbUPAwzzvoFlndI3yLj1o8=26/05/2026 23:16:3526/05/2026 22:04:16Q0YEnpsGge6ufmnauHpvy6wzskw=26/05/2026 22:04:1626/05/2026 22:04:16</TimeStamp>
+        <ID>
+          <String>Futbol DW</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>Y2RczqvS+iVPME1xkmXSF8elIqY=26/05/2026 20:40:4326/05/2026 20:40:42</TimeStamp>
+      <ID>
+        <String>CuboFutbol</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2026-05-26T21:17:07.86Z</LastDeployed>
+</DeploymentSnapshot>
