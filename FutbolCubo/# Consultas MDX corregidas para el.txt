@@ -1,0 +1,272 @@
+# Consultas MDX corregidas para el cubo `Futbol DW`
+
+Estas consultas están ajustadas a los nombres actuales del cubo tras las correcciones:
+
+- Tiempo: `[Dim Time].[Calendario]` con niveles `Anio`, `Trimestre`, `Mes`, `Dia`.
+- Día de semana: `[Dim Time].[Dia de la semana]` con nivel `Nombre dia semana`.
+- Eventos: `[Dim Events].[Competicion Temporada]` con niveles `Competicion`, `Temporada`.
+- Jornadas: `[Dim Jornada].[Jornada Competicion]` con niveles `Evento`, `Orden jornada`, `Jornada`.
+- Equipos: `[Team1].[Geografia Equipo]` y `[Team2].[Geografia Equipo]`.
+- Estadios: `[Dim Estadios].[Ubicacion Estadio]`.
+
+## 1. Mostrar las temporadas donde el equipo "Real Madrid" (en Team1) jugó más de 5 partidos en "Domingo", ordenadas de mayor a menor éxito.
+
+```mdx
+SELECT 
+    {[Measures].[Count Partidos]} ON COLUMNS,
+    ORDER(
+        FILTER(
+            [Dim Events].[Competicion Temporada].[Temporada].Members,
+            (
+                [Dim Time].[Dia de la semana].[Nombre dia semana].[Domingo],
+                [Team1].[Geografia Equipo].[Equipo].[Real Madrid],
+                [Measures].[Count Partidos]
+            ) > 5
+        ),
+        [Measures].[Count Partidos],
+        BDESC
+    ) ON ROWS
+FROM [Futbol DW]
+```
+
+## 2. Mostrar la evolución de partidos mes a mes para el año 2025, incluyendo una columna con el total acumulado desde enero hasta ese mes.
+
+```mdx
+WITH 
+MEMBER [Measures].[Partidos YTD] AS
+    SUM(
+        YTD([Dim Time].[Calendario].CurrentMember),
+        [Measures].[Count Partidos]
+    )
+SELECT 
+    {[Measures].[Count Partidos], [Measures].[Partidos YTD]} ON COLUMNS,
+    DESCENDANTS([Dim Time].[Calendario].[Anio].[2025], [Dim Time].[Calendario].[Mes]) ON ROWS
+FROM [Futbol DW]
+```
+
+## 3. Evolución mensual de goles
+
+```mdx
+WITH
+  MEMBER [Measures].[Media Goles Partido] AS
+    IIF(
+      [Measures].[Recuento Partido] = 0,
+      NULL,
+      [Measures].[Total Goles] / [Measures].[Recuento Partido]
+    ),
+    FORMAT_STRING = '0.00'
+SELECT
+  {
+    [Measures].[Recuento Partido],
+    [Measures].[Total Goles],
+    [Measures].[Media Goles Partido]
+  } ON COLUMNS,
+  NON EMPTY
+    [Dim Time].[Calendario].[Mes].MEMBERS ON ROWS
+FROM [Futbol DW];
+```
+
+## 4. Goles por competición y año
+
+```mdx
+SELECT
+  {
+    [Measures].[Recuento Partido],
+    [Measures].[Total Goles]
+  } ON COLUMNS,
+  NON EMPTY
+    CROSSJOIN(
+      [Dim Events].[Competicion Temporada].[Competicion].MEMBERS,
+      [Dim Time].[Calendario].[Anio].MEMBERS
+    ) ON ROWS
+FROM [Futbol DW];
+```
+
+## 5. Temporadas con más goles
+
+```mdx
+SELECT
+  {
+    [Measures].[Recuento Partido],
+    [Measures].[Total Goles]
+  } ON COLUMNS,
+  NON EMPTY
+    TOPCOUNT(
+      [Dim Events].[Competicion Temporada].[Temporada].MEMBERS,
+      10,
+      [Measures].[Total Goles]
+    ) ON ROWS
+FROM [Futbol DW];
+```
+
+## 6. Equipos locales con más goles
+
+```mdx
+SELECT
+  {
+    [Measures].[Recuento Partido],
+    [Measures].[Goles Local],
+    [Measures].[Victoria Local]
+  } ON COLUMNS,
+  NON EMPTY
+    TOPCOUNT(
+      [Team1].[Geografia Equipo].[Equipo].MEMBERS,
+      15,
+      [Measures].[Goles Local]
+    ) ON ROWS
+FROM [Futbol DW];
+```
+
+## 7. Identificar el 10% de las jornadas de competición ([Dim Jornada]) que históricamente han acumulado menos cantidad de partidos.
+
+```mdx
+WITH 
+MEMBER [Measures].[Promedio General Estadios] AS
+    AVG([Dim Estadios].[Ubicacion Estadio].[Nombre Estadio].Members, [Measures].[Count Partidos])
+SELECT 
+    {[Measures].[Count Partidos], [Measures].[Promedio General Estadios]} ON COLUMNS,
+    FILTER(
+        [Dim Estadios].[Ubicacion Estadio].[Nombre Estadio].Members,
+        [Measures].[Count Partidos] > [Measures].[Promedio General Estadios]
+    ) ON ROWS
+FROM [Futbol DW]
+```
+
+## 8. Rendimiento local por equipo
+
+```mdx
+WITH
+  MEMBER [Measures].[Porcentaje Victorias Locales] AS
+    IIF(
+      [Measures].[Recuento Partido] = 0,
+      NULL,
+      [Measures].[Victoria Local] / [Measures].[Recuento Partido]
+    ),
+    FORMAT_STRING = 'Percent'
+SELECT
+  {
+    [Measures].[Recuento Partido],
+    [Measures].[Victoria Local],
+    [Measures].[Porcentaje Victorias Locales]
+  } ON COLUMNS,
+  NON EMPTY
+    [Team1].[Geografia Equipo].[Equipo].MEMBERS ON ROWS
+FROM [Futbol DW];
+```
+
+## 9. Cruce de FCBarcelona contra Real Madrid
+
+```mdx
+WITH
+  MEMBER [Measures].[Balance Goles Local Visitante] AS
+    [Measures].[Goles Local] - [Measures].[Goles Visitante]
+SELECT
+  {
+    [Measures].[Recuento Partido],
+    [Measures].[Goles Local],
+    [Measures].[Goles Visitante],
+    [Measures].[Balance Goles Local Visitante]
+  } ON COLUMNS,
+  NON EMPTY
+    CROSSJOIN(
+      {[Team1].[Geografia Equipo].[Equipo].[FC Barcelona], [Team1].[Geografia Equipo].[Equipo].[Real Madrid]},
+      {[Team2].[Geografia Equipo].[Equipo].[FC Barcelona], [Team2].[Geografia Equipo].[Equipo].[Real Madrid]}
+    ) ON ROWS
+FROM [Futbol DW];
+```
+
+## 10. Porcentaje de partidos de ciudades andaluzas respecto al total de Andalucía
+
+```mdx
+WITH MEMBER [Measures].[% Ciudad vs Region] AS
+    [Measures].[Count Partidos] / ([Team1].[Geografia Equipo].[Region].[Andalucia], [Measures].[Count Partidos]),
+    FORMAT_STRING = "Percent"
+SELECT 
+    {[Measures].[Count Partidos], [Measures].[% Ciudad vs Region]} ON COLUMNS,
+    [Team1].[Geografia Equipo].[Region].[Andalucia].Children ON ROWS
+FROM [Futbol DW]
+```
+
+## 11. Goles por temporada, mes y día de la semana
+
+```mdx
+SELECT
+  [Dim Time].[Dia de la semana].[Nombre dia semana].MEMBERS ON COLUMNS,
+  NON EMPTY
+    CROSSJOIN(
+      [Dim Events].[Competicion Temporada].[Temporada].MEMBERS,
+      [Dim Time].[Calendario].[Mes].MEMBERS
+    ) ON ROWS
+FROM [Futbol DW]
+WHERE ([Measures].[Total Goles]);
+```
+
+## 12. Estadios con más partidos y goles
+
+```mdx
+SELECT
+  {
+    [Measures].[Recuento Partido],
+    [Measures].[Total Goles]
+  } ON COLUMNS,
+  NON EMPTY
+    TOPCOUNT(
+      [Dim Estadios].[Ubicacion Estadio].[Estadio].MEMBERS,
+      15,
+      [Measures].[Recuento Partido]
+    ) ON ROWS
+FROM [Futbol DW];
+```
+
+## 13. Goles por estadio
+
+```mdx
+SELECT
+  {
+    [Measures].[Recuento Partido],
+    [Measures].[Total Goles]
+  } ON COLUMNS,
+  NON EMPTY
+    [Dim Estadios].[Ubicacion Estadio].[Estadio].MEMBERS ON ROWS
+FROM [Futbol DW];
+```
+
+## 14. Jornadas con más goles
+
+```mdx
+SELECT
+  {
+    [Measures].[Recuento Partido],
+    [Measures].[Total Goles],
+    [Measures].[Empates]
+  } ON COLUMNS,
+  NON EMPTY
+    TOPCOUNT(
+      [Dim Jornada].[Jornada Competicion].[Jornada].MEMBERS,
+      20,
+      [Measures].[Total Goles]
+    ) ON ROWS
+FROM [Futbol DW];
+```
+
+## 15. Acumulado de goles por mes dentro del año
+
+```mdx
+WITH
+  MEMBER [Measures].[Goles Acumulados Anio] AS
+    SUM(
+      PERIODSTODATE(
+        [Dim Time].[Calendario].[Anio],
+        [Dim Time].[Calendario].CURRENTMEMBER
+      ),
+      [Measures].[Total Goles]
+    )
+SELECT
+  {
+    [Measures].[Total Goles],
+    [Measures].[Goles Acumulados Anio]
+  } ON COLUMNS,
+  NON EMPTY
+    [Dim Time].[Calendario].[Mes].MEMBERS ON ROWS
+FROM [Futbol DW];
+```
